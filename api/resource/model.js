@@ -2,29 +2,21 @@
 const db = require('../../data/dbConfig')
 
 async function find(){
-    const projects = await db('project')
-    return projects.map((project) => {
-        return {
-            ...project,
-            project_completed: project.project_completed === 1,
-        }
-    })
+    const resources = await db('resources')
+    return resources
 }
 
 async function findById (id) {
-    const row = await db('projects')
-        .where('project_id', id)
+    const row = await db('resources')
+        .where('resource_id', id)
         .first();
-    return {
-        ...row, 
-        project_completed: row.project_completed ? true : false
-    }
+    return row
 }
 
-async function insertProject (project) {
-    const [id] = await db('projects')
-        .insert(project)
+async function insert (resource) {
+    const [id] = await db('resources')
+        .insert(resource)
     return findById(id)
 }
 
-module.exports = {find, insertProject}
+module.exports = {find, insert}

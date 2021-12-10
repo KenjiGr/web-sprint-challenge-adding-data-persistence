@@ -2,7 +2,7 @@
 const db = require('../../data/dbConfig')
 
 async function find(){
-    const projects = await db('project')
+    const projects = await db('projects')
     return projects.map((project) => {
         return {
             ...project,
@@ -12,7 +12,7 @@ async function find(){
 }
 
 async function findById (id) {
-    const row = await db('project')
+    const row = await db('projects')
         .where('project_id', id)
         .first();
     return {
@@ -22,7 +22,7 @@ async function findById (id) {
 }
 
 async function insertProject (project) {
-    const [id] = await db('project')
+    const [id] = await db('projects')
         .insert(project)
     return findById(id)
 }
